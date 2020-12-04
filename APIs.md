@@ -20,8 +20,7 @@ Documentation for using accomple_database for Native App Development
 }
 ```
 - Success Response [Status: 201]
-
-returns the request data along with `authentication token` in `token` field which is used to access private views
+>returns the request data along with `authentication token` in `token` field which is used to access private views
 ```js
 {
 	"username":  "johndoe@gmail.com",
@@ -37,7 +36,7 @@ returns the request data along with `authentication token` in `token` field whic
 }
 ```
 - Error Response [Status: 400]
-error response indicates insufficient, invalid request data  or repeated username in database
+>error response indicates insufficient, invalid request data  or repeated username in database
 ```js
 {
 	"detail":  "serialization error"
@@ -55,7 +54,7 @@ error response indicates insufficient, invalid request data  or repeated usernam
 }
 ```
 - Success Response [Status: 200]
-returns account type details along with `authentication token`
+>returns account type details along with `authentication token`
 ```js
 {
 	"token":  "b832aee39de3780257ec9070466bb012ed8b75b8",
@@ -86,7 +85,7 @@ returns account type details along with `authentication token`
 >GET: http://api.accomple.sockets.live/accounts/verification_code/
 
 - Response
-returns email and verification status
+>returns email and verification status
 ```js
 {
 	"email":  "johndoe@gmail.com",
@@ -102,10 +101,10 @@ returns email and verification status
 ```
 
 - Success Response [Status: 201]
-resends otp key to provided email, phone number and returns `{}` as response
+>resends otp key to provided email, phone number and returns `{}` as response
 
 - Error Response [Status: 423]
-raised when verified users sends this request
+>raised when verified users sends this request
 ```js
 {
 	"detail":  "verified account"
@@ -121,7 +120,7 @@ raised when verified users sends this request
 ```
 
 - Success Response [Status: 202]
-when otp is accepted
+>when otp is accepted
 ```js
 {
 	"is_verified":  true,
@@ -129,21 +128,21 @@ when otp is accepted
 }
 ```
 - Error Response [Status: 423]
-raised when verified users sends this request
+>raised when verified users sends this request
 ```js
 {
 	"detail":  "verified account"
 }
 ```
 - Error Response [Status: 422]
-raised when `key` send in `otp` field is invalid
+>raised when `key` send in `otp` field is invalid
 ```js
 {
 	"detail":  "Invalid OTP"
 }
 ```
 - Error Response [Status: 410]
-raised when `key` send in `otp` field is expired (600s)
+>raised when `key` send in `otp` field is expired (600s)
 ```js
 {
 	"detail":  "OTP expired"
@@ -182,7 +181,7 @@ raised when `key` send in `otp` field is expired (600s)
 ```
 
 - Error Response [Status: 400]
-error response indicates insufficient, invalid request data  or repeated username in database
+>error response indicates insufficient, invalid request data  or repeated username in database
 ```js
 {
 	"detail":  "serialization error"
@@ -207,7 +206,7 @@ error response indicates insufficient, invalid request data  or repeated usernam
 ```
 
 - Error Response [Status: 400]
-raised on `new_password.length() < 8`
+>raised on `new_password.length() < 8`
 ```js
 {
 	"detail":  "invalid new password (length<8)"
@@ -215,7 +214,7 @@ raised on `new_password.length() < 8`
 ```
 
 - Error Response [Status: 401]
-raised on invalid Current Password in `PUT` request
+>raised on invalid Current Password in `PUT` request
 ```js
 {
 	"detail":  "invalid current password"
@@ -238,7 +237,7 @@ raised on invalid Current Password in `PUT` request
 }
 ```
 - Error Response [Status: 401]
-raised on invalid Password in `DELETE` request
+>raised on invalid Password in `DELETE` request
 ```js
 {
 	"detail":  "invalid password"
@@ -250,7 +249,7 @@ raised on invalid Password in `DELETE` request
 ### Active Cities
 - Request
 >GET: http://api.accomple.sockets.live/active_cities/names/
->
+
 <hr></hr>
 
 ### Browse Accommodations
@@ -304,7 +303,7 @@ fetchs the building detail for building_id = 1
 }
 ```
 - Error Response [Status: 404]
-raised when user/building is not found
+>raised when user/building is not found
 ```js
 {
 	"detail":  "Not found."
@@ -320,10 +319,10 @@ raised when user/building is not found
 {}
 ```
 - Sucess Response [Status: 200]
-list of apartments bookmarked by this user, same structure as in **Browse Accommodations**
+>list of apartments bookmarked by this user, same structure as in **Browse Accommodations**
 
 - Error Response [Status: 404]
-provided token doesn't match any user
+>provided token doesn't match any user
 
 ###  Delete Bookmarks
 > Must contain User auth_token in headers
@@ -341,7 +340,7 @@ provided token doesn't match any user
 ```
 
 - Error Response [Status: 404]
-raised when bookmark is not found
+>raised when bookmark is not found
 ```js
 {
 	"detail":  "Not Found"
@@ -349,7 +348,7 @@ raised when bookmark is not found
 ```
 
 - Error Response [Status: 409]
-raised when bookmark's user doesn't match with this user
+>raised when bookmark's user doesn't match with this user
 ```js
 {
 	"detail":  "invalid user"
@@ -376,10 +375,10 @@ raised when bookmark's user doesn't match with this user
 }
 ```
 - Error Response [Status: 404]
-raised when user/room is not found
+>raised when user/room is not found
 
 - Error Response [Status: 409]
-raised when no rooms are available or multiple bookings detected for this user
+>raised when no rooms are available or multiple bookings detected for this user
 
 ###  Active Booking
 > Must contain User auth_token in headers
@@ -452,10 +451,10 @@ if no booking exists then
 }
 ```
 - Error Response [Status: 404]
-raised when booking is not found
+>raised when booking is not found
 
 - Error Response [Status: 401]
-raised on invalid token or booking's user doesn't match with this user
+>raised on invalid token or booking's user doesn't match with this user
 
 ## 3. Owner Specific End Points
 > Pending
