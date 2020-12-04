@@ -21,7 +21,7 @@ Documentation for using accomple_database for Native App Development
 ```
 - Success Response [Status: 201]
 returns the request data along with `authentication token` in `token` field which is used to access private views
-```json
+```js
 {
 	"username":  "johndoe@gmail.com",
 	"first_name":  "John",
@@ -37,7 +37,7 @@ returns the request data along with `authentication token` in `token` field whic
 ```
 - Error Response [Status: 400]
 error response indicates insufficient, invalid request data  or repeated username in database
-```json
+```js
 {
 	"detail":  "serialization error"
 }
@@ -47,7 +47,7 @@ error response indicates insufficient, invalid request data  or repeated usernam
 ### Login
 - Request
 >POST: http://api.accomple.sockets.live/accounts/login/
-```json
+```js
 {
 	"username":  "johndoe@gmail.com",
 	"password":  "TestPassword"
@@ -55,7 +55,7 @@ error response indicates insufficient, invalid request data  or repeated usernam
 ```
 - Success Response [Status: 200]
 returns account type details along with `authentication token`
-```json
+```js
 {
 	"token":  "b832aee39de3780257ec9070466bb012ed8b75b8",
 	"is_owner":  false,
@@ -65,7 +65,7 @@ returns account type details along with `authentication token`
 }
 ```
 - Error Response [Status: 401]
-```json
+```js
 {
 	"detail":  "Incorrect username or password"
 }
@@ -75,7 +75,7 @@ returns account type details along with `authentication token`
 ### Verification
 - **Request Header**
 `Authorization: Token b832aee39de3780257ec9070466bb012ed8b75b8 `
-```json
+```js
 // raises 401 error when header is missing
 {
 	"detail":  "Authentication credentials were not provided."
@@ -86,7 +86,7 @@ returns account type details along with `authentication token`
 
 - Response
 returns email and verification status
-```json
+```js
 {
 	"email":  "johndoe@gmail.com",
 	"is_verified":  false
@@ -94,7 +94,7 @@ returns email and verification status
 ```
 - Request (resend otp)
 >POST:  http://api.accomple.sockets.live/accounts/verification_code/
-```json
+```js
 {
 	"resend":  true
 }
@@ -105,7 +105,7 @@ resends otp key to provided email, phone number and returns `{}` as response
 
 - Error Response [Status: 423]
 raised when verified users sends this request
-```json
+```js
 {
 	"detail":  "verified account"
 }
@@ -113,7 +113,7 @@ raised when verified users sends this request
 
 - Request (submit otp)
 >POST:  http://api.accomple.sockets.live/accounts/verification_code/
-```json
+```js
 {
 	"otp":  "<key>"
 }
@@ -121,7 +121,7 @@ raised when verified users sends this request
 
 - Success Response [Status: 202]
 when otp is accepted
-```json
+```js
 {
 	"is_verified":  true,
 	"detail":  "OTP accepted, verification success"
@@ -129,26 +129,120 @@ when otp is accepted
 ```
 - Error Response [Status: 423]
 raised when verified users sends this request
-```json
+```js
 {
 	"detail":  "verified account"
 }
 ```
 - Error Response [Status: 422]
 raised when `key` send in `otp` field is invalid
-```json
+```js
 {
 	"detail":  "Invalid OTP"
 }
 ```
 - Error Response [Status: 410]
 raised when `key` send in `otp` field is expired (600s)
-```json
+```js
 {
 	"detail":  "OTP expired"
 }
 ```
 <hr></hr>
+
+### Update Profile
+> Must contain User auth_token in headers
+- Request
+ > PUT: http://api.accomple.sockets.live/accounts/profile/update/user=me/
+```js
+ {
+	"first_name":  "John",
+	"last_name":  "Doe",
+	"phone_number":  "9999999999",
+	"is_owner":  [true|false],
+	"date_of_birth":  "2010-10-10",
+	"profile_pic":  [image/*|null],
+}
+```
+- Success Response [Status: 200]
+```js
+{
+"username":  "johndoe@gmail.com",
+"first_name":  "John",
+"last_name":  "Doe",
+"password":  "pbkdf2_sha256$216000$J8SarSvbrvTT$tnIpgiKlRMZT7KdpmI6dZjXih/9ExTUrQQgKR7JpMiY=",
+"is_verified":  true,
+"phone_number":  "999999999",
+"is_owner":  false,
+"date_of_birth":  "2010-10-10",
+"is_superuser":  false,
+"profile_pic":  "/media/profile_pics/31XLDBAYgTx3TL9sbfH9mWIKkS45vfL-rlnz4MjX.png"
+}
+```
+
+- Error Response [Status: 400]
+error response indicates insufficient, invalid request data  or repeated username in database
+```js
+{
+	"detail":  "serialization error"
+}
+```
+
+### Update Password
+> Must contain User auth_token in headers
+- Request
+ > PUT: http://api.accomple.sockets.live/accounts/password/update/user=me/
+```js
+{
+	"current_password": "TestPassword",
+	"new_password": "NewTestPassword",
+}
+```
+- Success Response [Status: 200]
+```js
+{
+	"detail":  "success"
+}
+```
+
+- Error Response [Status: 400]
+raised on `new_password.length() < 8`
+```js
+{
+	"detail":  "invalid new password (length<8)"
+}
+```
+
+- Error Response [Status: 401]
+raised on invalid Current Password in `PUT` request
+```js
+{
+	"detail":  "invalid current password"
+}
+```
+
+### Delete Account
+> Must contain User auth_token in headers
+- Request
+ > DELETE: http://api.accomple.sockets.live/accountsdelete/user=me/
+```js
+{
+	"password": "TestPassword"
+}
+```
+- Success Response [Status: 200]
+```js
+{
+	"detail":  "success"
+}
+```
+- Error Response [Status: 401]
+raised on invalid Password in `DELETE` request
+```js
+{
+	"detail":  "invalid password"
+}
+```
 
 
 ## 2. User Specific End Points
@@ -196,12 +290,12 @@ fetchs the building detail for building_id = 1
 > Must contain User auth_token in headers
 
 - Request
-- POST: http://api.accomple.sockets.live/accounts/bookmark/add/building_id=<_id_>/
-```json
+ POST: http://api.accomple.sockets.live/accounts/bookmark/add/building_id=<_id_>/
+```js
 {}
 ```
 - Sucess Response [Status: 201]
-```json
+```js
 {
 	"id":  <bookmark_id>,
 	"user":  <user_id>,
@@ -210,7 +304,7 @@ fetchs the building detail for building_id = 1
 ```
 - Error Response [Status: 404]
 raised when user/building is not found
-```json
+```js
 {
 	"detail":  "Not found."
 }
@@ -220,8 +314,8 @@ raised when user/building is not found
 > Must contain User auth_token in headers
 
 - Request
-- GET: http://api.accomple.sockets.live/accounts/bookmarks/get/user=me/
-```json
+> GET: http://api.accomple.sockets.live/accounts/bookmarks/get/user=me/
+```js
 {}
 ```
 - Sucess Response [Status: 200]
@@ -230,3 +324,137 @@ list of apartments bookmarked by this user, same structure as in **Browse Accomm
 - Error Response [Status: 404]
 provided token doesn't match any user
 
+###  Delete Bookmarks
+> Must contain User auth_token in headers
+
+- Request
+> DELETE: http://api.accomple.sockets.live/accounts/bookmarks/delete/id=<_id_>/
+```js
+{}
+```
+- Sucess Response [Status: 200]
+```js
+{
+	"detail":  "success"
+}
+```
+
+- Error Response [Status: 404]
+raised when bookmark is not found
+```js
+{
+	"detail":  "Not Found"
+}
+```
+
+- Error Response [Status: 409]
+raised when bookmark's user doesn't match with this user
+```js
+{
+	"detail":  "invalid user"
+}
+```
+
+###  Add Booking
+> Must contain User auth_token in headers
+> Check whether user is verified intended to be done by native app developer
+
+- Request
+> POST: http://api.accomple.sockets.live/accommodations/booking/add/id=<_room_id_>/
+```js
+{}
+```
+- Sucess Response [Status: 201]
+```js
+{
+	"id":  <booking_id>,
+	"booking_no":  <booking_no>,
+	"room":  <room_id>,
+	"user":  <user_id>,
+	"booking_date":  <timestamp_string>
+}
+```
+- Error Response [Status: 404]
+raised when user/room is not found
+
+- Error Response [Status: 409]
+raised when no rooms are available or multiple bookings detected for this user
+
+###  Active Booking
+> Must contain User auth_token in headers
+- Request
+> GET: http://api.accomple.sockets.live/accounts/booking/get/user=me/
+
+- Sucess Response [Status: 200]
+```js
+{
+    "booking": {
+        "id": 12,
+        "booking_no": "382394591609",
+        "room": 1,
+        "user": 13,
+        "booking_date": "2020-12-04T17:17:41.569270Z"
+    },
+    "room": {
+        "id": 1,
+        "building": 1,
+        "description": "Room for two",
+        "title": "Double Occupancy",
+        "rent": 12000.0,
+        "total": 25,
+        "available": 22,
+        "occupancy": 2,
+        "is_verified": true
+    },
+    "building": {
+        "id": 1,
+        "owner": 1,
+        "building_name": "Chester House",
+        "street": "Renuka Nivas",
+        "area": "Vishwashanti Colony",
+        "city": "Pune",
+        "state": "Maharashtra",
+        "zip_code": "411043",
+        "landmark": "Chester Plaza",
+        "latitude": 18.598116,
+        "longitude": 73.798964,
+        "gender_label": "U",
+        "display_pic": "/media/building_pics/w3k1SskAgCwxjH-vRjm00PvSASdzWdTduGaKQhig.jpg",
+        "in_time": "23:00:00"
+    },
+    "owner": {
+        "email": "exampleowner@gmail.com",
+        "first_name": "owner",
+        "last_name": "example",
+        "phone_number": "8888888888"
+    },
+    "exists": true
+}
+```
+if no booking exists then 
+```js
+{
+	"exists":  false
+}
+```
+
+###  Delete Booking
+> Must contain User auth_token in headers
+
+- Request
+> DELETE: http://api.accomple.sockets.live/accommodations/booking/delete/id=<_booking_no_>/
+
+- Sucess Response [Status: 200]
+```js
+{
+	"detail":  "success",
+}
+```
+- Error Response [Status: 404]
+raised when booking is not found
+
+- Error Response [Status: 401]
+raised on invalid token or booking's user doesn't match with this user
+
+## 2. Owner Specific End Points
+> Pending
