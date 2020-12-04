@@ -1,5 +1,4 @@
-
-﻿# Accomple Client APIs
+# Accomple Client APIs
 Documentation for using accomple_database for Native App Development
 >- [Website](http://accomple.sockets.live)
 >- [Admin Login](http://api.accomple.sockets.live/admin/)
