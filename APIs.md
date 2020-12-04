@@ -167,16 +167,16 @@ raised when `key` send in `otp` field is expired (600s)
 - Success Response [Status: 200]
 ```js
 {
-"username":  "johndoe@gmail.com",
-"first_name":  "John",
-"last_name":  "Doe",
-"password":  "pbkdf2_sha256$216000$J8SarSvbrvTT$tnIpgiKlRMZT7KdpmI6dZjXih/9ExTUrQQgKR7JpMiY=",
-"is_verified":  true,
-"phone_number":  "999999999",
-"is_owner":  false,
-"date_of_birth":  "2010-10-10",
-"is_superuser":  false,
-"profile_pic":  "/media/profile_pics/31XLDBAYgTx3TL9sbfH9mWIKkS45vfL-rlnz4MjX.png"
+	"username":  "johndoe@gmail.com",
+	"first_name":  "John",
+	"last_name":  "Doe",
+	"password":  "pbkdf2_sha256$216000$J8SarSvbrvTT$tnIpgiKlRMZT7KdpmI6dZjXih/9ExTUrQQgKR7JpMiY=",
+	"is_verified":  true,
+	"phone_number":  "999999999",
+	"is_owner":  false,
+	"date_of_birth":  "2010-10-10",
+	"is_superuser":  false,
+	"profile_pic":  "/media/profile_pics/31XLDBAYgTx3TL9sbfH9mWIKkS45vfL-rlnz4MjX.png"
 }
 ```
 
