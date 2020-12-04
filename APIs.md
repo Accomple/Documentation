@@ -20,6 +20,7 @@ Documentation for using accomple_database for Native App Development
 }
 ```
 - Success Response [Status: 201]
+
 returns the request data along with `authentication token` in `token` field which is used to access private views
 ```js
 {
