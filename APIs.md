@@ -1,3 +1,4 @@
+
 ﻿# Accomple Client APIs
 Documentation for using accomple_database for Native App Development
 >- [Website](http://accomple.sockets.live)
@@ -187,6 +188,7 @@ Documentation for using accomple_database for Native App Development
 	"detail":  "serialization error"
 }
 ```
+<hr></hr>
 
 ### Update Password
 > Must contain User auth_token in headers
@@ -220,6 +222,7 @@ Documentation for using accomple_database for Native App Development
 	"detail":  "invalid current password"
 }
 ```
+<hr></hr>
 
 ### Delete Account
 > Must contain User auth_token in headers
@@ -243,6 +246,7 @@ Documentation for using accomple_database for Native App Development
 	"detail":  "invalid password"
 }
 ```
+<hr></hr>
 
 
 ## 2. User Specific End Points
@@ -309,6 +313,7 @@ fetchs the building detail for building_id = 1
 	"detail":  "Not found."
 }
 ```
+<hr></hr>
 
 ###  List Bookmarks 
 > Must contain User auth_token in headers
@@ -323,6 +328,7 @@ fetchs the building detail for building_id = 1
 
 - Error Response [Status: 404]
 >provided token doesn't match any user
+<hr></hr>
 
 ###  Delete Bookmarks
 > Must contain User auth_token in headers
@@ -354,6 +360,7 @@ fetchs the building detail for building_id = 1
 	"detail":  "invalid user"
 }
 ```
+<hr></hr>
 
 ###  Add Booking
 > Must contain User auth_token in headers
@@ -379,6 +386,7 @@ fetchs the building detail for building_id = 1
 
 - Error Response [Status: 409]
 >raised when no rooms are available or multiple bookings detected for this user
+<hr></hr>
 
 ###  Active Booking
 > Must contain User auth_token in headers
@@ -437,6 +445,7 @@ if no booking exists then
 	"exists":  false
 }
 ```
+<hr></hr>
 
 ###  Delete Booking
 > Must contain User auth_token in headers
@@ -455,6 +464,7 @@ if no booking exists then
 
 - Error Response [Status: 401]
 >raised on invalid token or booking's user doesn't match with this user
+<hr></hr>
 
 ## 3. Owner Specific End Points
 > Pending
