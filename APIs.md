@@ -115,7 +115,7 @@ raised when verified users sends this request
 >POST:  http://api.accomple.sockets.live/accounts/verification_code/
 ```js
 {
-	"otp":  "<key>"
+	"otp":  <key>
 }
 ```
 
