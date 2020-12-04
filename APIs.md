@@ -7,7 +7,7 @@ Documentation for using accomple_database for Native App Development
 - Request
 >POST: http://api.accomple.sockets.live/accounts/register/
 
-```json
+```js
 {
 	"username":  "johndoe@gmail.com",
 	"password": "TestPassword"
