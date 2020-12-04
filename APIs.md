@@ -456,5 +456,5 @@ raised when booking is not found
 - Error Response [Status: 401]
 raised on invalid token or booking's user doesn't match with this user
 
-## 2. Owner Specific End Points
+## 3. Owner Specific End Points
 > Pending
