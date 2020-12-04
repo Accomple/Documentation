@@ -16,7 +16,7 @@ Documentation for using accomple_database for Native App Development
 	"phone_number":  "9999999999",
 	"is_owner":  [true|false],
 	"date_of_birth":  "2010-10-10",
-	"profile_pic":  [image/'*'|null],
+	"profile_pic":  /*[image/'*'|null]*/,
 }
 ```
 - Success Response [Status: 201]
